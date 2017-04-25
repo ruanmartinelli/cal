@@ -94,6 +94,19 @@ export class CalendarComponent implements OnInit {
     this.eventService.addEvent(event)
   }
 
+  handleKeypress(e, day) {
+    const isEsc = e.keyCode && e.keyCode === 27
+    const isTab = e.keyCode && e.keyCode === 9
+    if (!isEsc && !isTab) return
+
+    if (isEsc) this.toggleEventInput(null)
+
+    if (isTab) {
+      const tomorrow = moment(day.date).add(1, 'days').format(this.iso)
+      this.toggleEventInput(tomorrow)
+    }
+  }
+
   ngOnInit() {
     this.userId = this.route.snapshot.params['uid'];
 
