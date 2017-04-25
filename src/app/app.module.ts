@@ -5,8 +5,6 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-import { LoginComponent } from './login/login.component';
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZHTtwgTD1rqIklhkuioBqxNpERM6IFWY",
@@ -25,7 +23,6 @@ const firebaseAuthConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
   ],
   imports: [
     BrowserModule,
