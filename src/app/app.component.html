@@ -16,7 +16,8 @@
         </div>
 
         <div style="margin-left:20px" *ngFor="let event of day.events">
-          # {{event}}
+          # {{event.name}}
+          <span (click)="removeEvent(event.$key, day)">&times;</span>
         </div>
       </div>
     </div>

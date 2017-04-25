@@ -50,7 +50,7 @@ export class AppComponent {
     calendar.forEach((day) => {
       events.forEach((event) => {
         if (day.date === event.date) {
-          day.events.push(event.name)
+          day.events.push(event)
         }
       })
     })
@@ -66,7 +66,19 @@ export class AppComponent {
     return months[moment(isoDate).month()]
   }
 
+
+  removeEvent(key, day) {
+    this.eventService
+      .removeEvent(key)
+      .then(() => {
+        day.events = day.events.filter(e => e.$key && e.$key != key)
+      })
+  }
+
   ngOnInit() {
+
+    this.eventService.addEvent({name:'Teste', date:'2017-04-24' })
+
     this.createCalendar()
       .then(calendar => {
         this.calendar = calendar
