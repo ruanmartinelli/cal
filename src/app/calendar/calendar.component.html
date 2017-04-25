@@ -2,8 +2,8 @@
   <div class="col-lg-12">
     <div *ngFor="let day of calendar">
 
-      <div (click)="toggleEventInput(day.date)">{{day.name}}</div>
-
+      <div (click)="toggleEventInput(day.date)"
+           [ngClass]="day.isToday ? 'today': ''"> {{day.name}}</div>
 
       <div *ngIf="day.isFirstDay">
         <h3>{{getMonthText(day.date)}}</h3>

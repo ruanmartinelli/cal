@@ -1,0 +1,20 @@
+input[type="text"] {
+  color: red;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #fff;
+  padding-left: 20px;
+}
+
+/*.today::after {
+  content: "📆";
+}*/
+
+.today{
+  font-weight: 900;
+}
+
+form>button {
+  display: none;
+}

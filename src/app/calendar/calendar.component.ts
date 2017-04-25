@@ -30,7 +30,7 @@ export class CalendarComponent implements OnInit {
 
   createCalendar() {
     let calendar = []
-    let now = moment().format(this.iso)
+    let now = moment(this.start).add(1, 'days').format(this.iso)
 
     while (moment(now).isBetween(this.start, this.stop)) {
 
@@ -38,13 +38,13 @@ export class CalendarComponent implements OnInit {
       const yesterday = moment(now).add(-1, 'days').format(this.iso)
 
       // TODO: change name
-      let today = { name: now, date: now, events: [], isFirstDay: false }
+      let day = { name: now, date: now, events: [], isFirstDay: false, isToday: false }
 
-      if (moment(now).month() != moment(yesterday).month()) {
-        today.isFirstDay = true
-      }
+      if (moment(now).month() != moment(yesterday).month()) day.isFirstDay = true
 
-      calendar.push(today)
+      if (moment(now).isSame(moment().format(this.iso))) day.isToday = true
+
+      calendar.push(day)
 
       now = tomorrow
     }
