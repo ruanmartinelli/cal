@@ -45,6 +45,8 @@ export class AppComponent {
   }
 
   addToCalendar(events, calendar) {
+    console.log(events)
+
     calendar.forEach((day) => {
       events.forEach((event) => {
         if (day.date === event.date) {

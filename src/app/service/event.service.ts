@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/first';
 @Injectable()
 export class EventService {
 
-  constructor() { }
+  events;
 
+  constructor(af: AngularFire) {
+    this.events = af.database.list('events');
+  }
   getEvents() {
-    const events = [
-      { date: '2017-04-29', name: 'Buy Milk' },
-      { date: '2017-04-29', name: 'Take dog for a walk' },
-      { date: '2017-04-25', name: 'Water plants' },
-    ]
-    return Promise.resolve(events)
+    return this.events
+      .first()
+      .toPromise()
   }
 
 }
