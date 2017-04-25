@@ -1,0 +1,13 @@
+* {
+  font-family: 'Droid Sans Mono', monospace;
+  line-height: 2;
+  border: none;
+  outline: none;
+}
+
+body {
+  margin: 0;
+  background-color: #EFEFEF;
+}
+
+
