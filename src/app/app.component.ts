@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +11,7 @@ export class AppComponent {
 
   public isLoggedIn = false;
 
-  constructor(public af: AngularFire) { }
-
-  login() {
-    this.af.auth.login({
-      provider: AuthProviders.Google,
-      method: AuthMethods.Popup,
-    });
-  }
+  constructor(public af: AngularFire, public router: Router) { }
 
   logout() {
     this.af.auth.logout();
@@ -25,8 +19,14 @@ export class AppComponent {
 
   ngOnInit() {
     this.af.auth.subscribe(auth => {
-      if (!auth) this.login()
-      if (auth) this.isLoggedIn = true
+      if (!auth) {
+        this.isLoggedIn = false;
+        this.router.navigate(['/login']);
+      }
+      if (auth) {
+        this.isLoggedIn = true;
+        this.router.navigate(['/']);
+      }
     })
   }
 }

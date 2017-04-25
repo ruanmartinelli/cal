@@ -4,12 +4,12 @@
       <h1>cal</h1>
     </div>
     <div class="col-lg-6">
-      <div class="pull-right logout" (click)="logout()" *ngIf="isLoggedIn">
+      <div class="pull-right logout"
+           (click)="logout()"
+           *ngIf="isLoggedIn">
         logout
       </div>
     </div>
   </div>
-  <div *ngIf="isLoggedIn">
-    <app-calendar></app-calendar>
-  </div>
+  <router-outlet></router-outlet>
 </div>
