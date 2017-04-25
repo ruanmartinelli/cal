@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import * as moment from 'moment';
-
+import { EventService } from './service/event.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [EventService]
 })
 export class AppComponent {
 
@@ -14,6 +15,11 @@ export class AppComponent {
   private stop = moment().add(40, 'days').format(this.iso);
 
   public calendar = [];
+  public events = []
+
+  constructor(
+    public eventService: EventService
+  ) { }
 
   createCalendar() {
     let calendar = []
@@ -35,7 +41,17 @@ export class AppComponent {
 
       now = tomorrow
     }
-    return calendar
+    return Promise.resolve(calendar)
+  }
+
+  addToCalendar(events, calendar) {
+    calendar.forEach((day) => {
+      events.forEach((event) => {
+        if (day.date === event.date) {
+          day.events.push(event.name)
+        }
+      })
+    })
   }
 
   getMonthText(isoDate) {
@@ -49,6 +65,12 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.calendar = this.createCalendar()
+    this.createCalendar()
+      .then(calendar => {
+        this.calendar = calendar
+        return calendar
+      })
+      .then((calendar) => Promise.all([this.eventService.getEvents(), calendar]))
+      .then(([events, calendar]) => this.addToCalendar(events, calendar))
   }
 }
