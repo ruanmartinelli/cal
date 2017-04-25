@@ -10,4 +10,17 @@ body {
   background-color: #EFEFEF;
 }
 
+.vertical {
+  display: flex;
+  align-items: center;
+}
 
+.logout {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background-color:red;
+  color:white;
+}
