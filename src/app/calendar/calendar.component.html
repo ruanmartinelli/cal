@@ -2,7 +2,8 @@
   <div class="col-lg-12">
     <div *ngFor="let day of calendar">
 
-      <div>{{day.name}}</div>
+      <div (click)="toggleEventInput(day.date)">{{day.name}}</div>
+
 
       <div *ngIf="day.isFirstDay">
         <h3>{{getMonthText(day.date)}}</h3>
@@ -12,6 +13,18 @@
            *ngFor="let event of day.events">
         # {{event.name}}
         <span (click)="removeEvent(event.$key, day)">&times;</span>
+      </div>
+
+      <div *ngIf="eventInputs[day.date]">
+        <form (ngSubmit)="addEvent(newEvent, day)">
+          <input (keydown)="handleKeypress($event, day)"
+                 type="text"
+                 autofocus="true"
+                 autocomplete="off"
+                 name="eventName"
+                 [(ngModel)]="newEvent">
+          <button type="submit">+</button>
+        </form>
       </div>
     </div>
   </div>

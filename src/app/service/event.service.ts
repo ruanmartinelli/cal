@@ -22,7 +22,7 @@ export class EventService {
     return this.events.first().toPromise()
   }
 
-  addEvent(event) {
+  addEvent({ name, date }) {
     return this.events.push(event)
   }
 

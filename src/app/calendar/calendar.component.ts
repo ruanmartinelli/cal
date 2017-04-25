@@ -17,6 +17,8 @@ export class CalendarComponent implements OnInit {
   private stop = moment().add(40, 'days').format(this.iso);
   private userId: string;
 
+  public eventInputs = {};
+  public newEvent = {};
   public calendar = [];
   public events = []
 
@@ -75,6 +77,21 @@ export class CalendarComponent implements OnInit {
       .then(() => {
         day.events = day.events.filter(e => e.$key && e.$key != key)
       })
+  }
+
+  toggleEventInput(key: string) {
+    this.newEvent = ''
+    const toggle = this.eventInputs[key] || false
+    this.eventInputs = []
+    if (key) this.eventInputs[key] = !toggle
+  }
+
+  addEvent(event, date) {
+    if (!event.name) return
+
+    event.date = date
+
+    this.eventService.addEvent(event)
   }
 
   ngOnInit() {
