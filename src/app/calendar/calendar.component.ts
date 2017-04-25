@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import * as moment from 'moment';
 import { EventService } from '../service/event.service';
 
@@ -13,11 +15,16 @@ export class CalendarComponent implements OnInit {
   private iso = 'YYYY-MM-DD';
   private start = moment().subtract(10, 'days').format(this.iso);
   private stop = moment().add(40, 'days').format(this.iso);
+  private userId: string;
 
   public calendar = [];
   public events = []
 
-  constructor(public eventService: EventService) { }
+  constructor(
+    public eventService: EventService,
+    public router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   createCalendar() {
     let calendar = []
@@ -43,8 +50,6 @@ export class CalendarComponent implements OnInit {
   }
 
   addToCalendar(events, calendar) {
-    console.log(events)
-
     calendar.forEach((day) => {
       events.forEach((event) => {
         if (day.date === event.date) {
@@ -73,8 +78,11 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userId = this.route.snapshot.params['uid'];
 
-    this.eventService.addEvent({ name: 'Teste', date: '2017-04-24' })
+    this.eventService.setUser(this.userId)
+
+    this.eventService.addEvent({ name: 'Teste', date: '2017-04-28' })
 
     this.createCalendar()
       .then(calendar => {

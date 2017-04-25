@@ -8,19 +8,25 @@ import 'rxjs/add/operator/take';
 export class EventService {
 
   events;
+  userId: string;
 
   constructor(public af: AngularFire) {
-    this.events = af.database.list('/events');
   }
+
+  setUser(userId) {
+    this.userId = userId;
+    this.events = this.af.database.list(`/${this.userId}/events`);
+  }
+
   getEvents() {
     return this.events.first().toPromise()
   }
 
-  addEvent(event){
+  addEvent(event) {
     return this.events.push(event)
   }
 
-  removeEvent(key: string){
+  removeEvent(key: string) {
     return this.events.remove(key)
   }
 

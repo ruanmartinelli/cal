@@ -24,8 +24,9 @@ export class AppComponent {
         this.router.navigate(['/login']);
       }
       if (auth) {
+        console.log(auth)
         this.isLoggedIn = true;
-        this.router.navigate(['/']);
+        this.router.navigate(['/u/' + auth.uid]);
       }
     })
   }
