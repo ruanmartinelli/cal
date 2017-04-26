@@ -16,13 +16,13 @@
       </div>
 
       <div *ngIf="eventInputs[day.date]">
-        <form (ngSubmit)="addEvent(newEvent, day)">
+        <form (ngSubmit)="addEvent(newEvent, day.date)">
           <input (keydown)="handleKeypress($event, day)"
                  type="text"
                  autofocus="true"
                  autocomplete="off"
                  name="eventName"
-                 [(ngModel)]="newEvent">
+                 [(ngModel)]="newEvent.name">
           <button type="submit">+</button>
         </form>
       </div>

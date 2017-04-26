@@ -23,7 +23,7 @@ export class EventService {
   }
 
   addEvent({ name, date }) {
-    return this.events.push(event)
+    return this.events.push({ name, date })
   }
 
   removeEvent(key: string) {

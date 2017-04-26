@@ -17,8 +17,8 @@ export class CalendarComponent implements OnInit {
   private stop = moment().add(40, 'days').format(this.iso);
   private userId: string;
 
+  public newEvent: { name: string, date: string }
   public eventInputs = {};
-  public newEvent = {};
   public calendar = [];
   public events = []
 
@@ -37,13 +37,10 @@ export class CalendarComponent implements OnInit {
       const tomorrow = moment(now).add(1, 'days').format(this.iso)
       const yesterday = moment(now).add(-1, 'days').format(this.iso)
 
-      // TODO: change name
       let day = { name: now, date: now, events: [], isFirstDay: false, isToday: false }
 
       if (moment(now).month() != moment(yesterday).month()) day.isFirstDay = true
-
       if (moment(now).isSame(moment().format(this.iso))) day.isToday = true
-
       calendar.push(day)
 
       now = tomorrow
@@ -80,27 +77,36 @@ export class CalendarComponent implements OnInit {
   }
 
   toggleEventInput(key: string) {
-    this.newEvent = ''
+    this.newEvent = { name: null, date: null }
     const toggle = this.eventInputs[key] || false
     this.eventInputs = []
     if (key) this.eventInputs[key] = !toggle
   }
 
-  addEvent(event, date) {
+  addEvent(event, dayDate) {
     if (!event.name) return
 
-    event.date = date
+    const { name } = event
+    const date = dayDate
 
-    this.eventService.addEvent(event)
+    this.eventService
+      .addEvent({ name, date })
+      .then(() => {
+        const events = this.calendar.find(day => day.date === date).events
+
+        events.push({ name, date })
+
+        delete this.newEvent.name
+        delete this.newEvent.date
+      })
   }
 
   handleKeypress(e, day) {
     const isEsc = e.keyCode && e.keyCode === 27
     const isTab = e.keyCode && e.keyCode === 9
+
     if (!isEsc && !isTab) return
-
     if (isEsc) this.toggleEventInput(null)
-
     if (isTab) {
       const tomorrow = moment(day.date).add(1, 'days').format(this.iso)
       this.toggleEventInput(tomorrow)
@@ -109,10 +115,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.route.snapshot.params['uid'];
-
     this.eventService.setUser(this.userId)
-
-    this.eventService.addEvent({ name: 'Teste', date: '2017-04-28' })
 
     this.createCalendar()
       .then(calendar => {
