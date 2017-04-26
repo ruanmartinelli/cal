@@ -3,14 +3,16 @@
     <div *ngFor="let day of calendar">
 
       <div (click)="toggleEventInput(day.date)"
-           [ngClass]="day.isToday ? 'today': ''"> {{day.name}}</div>
+           [ngClass]="day.isToday ? 'today': ''"
+           class="day-text"> {{day.name}}</div>
 
       <div *ngIf="day.isFirstDay">
         <h3>{{getMonthText(day.date)}}</h3>
       </div>
 
       <div style="margin-left:20px"
-           *ngFor="let event of day.events">
+           *ngFor="let event of day.events"
+           class="event-text">
         # {{event.name}}
         <span (click)="removeEvent(event.$key, day)">&times;</span>
       </div>

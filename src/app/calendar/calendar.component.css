@@ -7,14 +7,23 @@ input[type="text"] {
   padding-left: 20px;
 }
 
+
 /*.today::after {
   content: "📆";
 }*/
 
-.today{
+.today {
   font-weight: 900;
 }
 
 form>button {
   display: none;
+}
+
+.day-text, .event-text>span {
+  cursor: pointer;
+}
+
+.day-text:hover{
+  font-weight: 900
 }
