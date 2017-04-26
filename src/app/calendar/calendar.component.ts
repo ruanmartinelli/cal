@@ -69,6 +69,8 @@ export class CalendarComponent implements OnInit {
   }
 
   removeEvent(key, day) {
+    if (!key) return
+
     this.eventService
       .removeEvent(key)
       .then(() => {
