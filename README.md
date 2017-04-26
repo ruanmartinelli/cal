@@ -1,4 +1,4 @@
-# cal :calendar:
+# :calendar: cal
 
 Unpretentious calendar app
 
@@ -9,6 +9,7 @@ Mainstream calendar apps are too cluttered and their forms are too lenghty. I us
 ### TODO
 - Make it a PWA;
 - Night mode;
+- Add screenshot;
 - Add different auth providers.
 
 ### License
