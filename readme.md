@@ -2,6 +2,8 @@
 
 Unpretentious calendar app
 
+<p align="center"><a href="https://ruanmartinelli.github.io/cal/">ruanmartinelli.github.io/cal</a></p>
+
 ![screenshot](https://github.com/ruanmartinelli/cal/blob/master/screenshot.png?raw=true)
 
 ### Why
@@ -11,7 +13,6 @@ Mainstream calendar apps are too cluttered and their forms are too lenghty. I us
 ### TODO
 - Make it a PWA;
 - Night mode;
-- Add screenshot;
 - Add different auth providers.
 
 ### License
