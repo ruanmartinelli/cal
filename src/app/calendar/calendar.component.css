@@ -24,6 +24,14 @@ form>button {
   cursor: pointer;
 }
 
-.day-text:hover{
-  font-weight: 900
+.day-text:hover {
+  color: white;
+  font: bold 52px;
+  text-shadow: 1px 1px red, 2px 2px red, 2px 2px red;
+  -webkit-transition: all 0.12s ease-out;
+  -moz-transition: all 0.12s ease-out;
+  -ms-transition: all 0.12s ease-out;
+  -o-transition: all 0.12s ease-out;
 }
+
+.remove {}

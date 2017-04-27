@@ -16,11 +16,41 @@ body {
 }
 
 .logout {
-  font-size: 12px;
+  font-size: 16px;
   cursor: pointer;
 }
 
 .logout:hover {
-  background-color:red;
-  color:white;
+  color: white;
+  position: relative;
+  top: -3px;
+  left: -3px;
+  text-shadow: 1px 1px red, 2px 2px red;
+}
+
+.logo {
+  color: black;
+  font: bold 52px;
+  /*text-shadow: 1px 1px red, 2px 2px red, 2px 2px red;
+  -webkit-transition: all 0.12s ease-out;
+  -moz-transition: all 0.12s ease-out;
+  -ms-transition: all 0.12s ease-out;
+  -o-transition: all 0.12s ease-out;*/
+}
+
+.logo:hover {
+  color: white;
+  position: relative;
+  top: -3px;
+  left: -3px;
+  text-shadow: 1px 1px red, 2px 2px red, 3px 3px red, 4px 4px red, 5px 5px red, 6px 6px red;
+}
+
+.logo::before {
+  content: "📅   ";
+  text-shadow: 1px 1px red, 2px 2px red, 2px 2px red;
+  -webkit-transition: all 0.12s ease-out;
+  -moz-transition: all 0.12s ease-out;
+  -ms-transition: all 0.12s ease-out;
+  -o-transition: all 0.12s ease-out;
 }
