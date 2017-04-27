@@ -22,12 +22,18 @@ export class EventService {
     return this.events.first().toPromise()
   }
 
-  addEvent({ name, date }) {
-    return this.events.push({ name, date })
+  addEvent({ name, date, id }) {
+    return this.events.push({ name, date, id })
   }
 
-  removeEvent(key: string) {
-    return this.events.remove(key)
+  removeEvent(id: string) {
+
+    return this.getEvents()
+      .then(events => {
+        const eventToRemove = events.find(e => e.id == id)
+
+        return this.af.database.list(`/${this.userId}/events/${eventToRemove.$key}`).remove()
+      })
   }
 
 }

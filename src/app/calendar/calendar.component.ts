@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import * as uuid from 'uuid/v1';
 import * as moment from 'moment';
 import { EventService } from '../service/event.service';
 
@@ -17,7 +18,7 @@ export class CalendarComponent implements OnInit {
   private stop = moment().add(40, 'days').format(this.iso);
   private userId: string;
 
-  public newEvent: { name: string, date: string }
+  public newEvent: { name: string, date: string, id: string }
   public eventInputs = {};
   public calendar = [];
   public events = []
@@ -68,18 +69,19 @@ export class CalendarComponent implements OnInit {
     return months[moment(isoDate).month()]
   }
 
-  removeEvent(key, day) {
-    if (!key) return
+  removeEvent(id, day) {
+    if (!id) return
 
     this.eventService
-      .removeEvent(key)
+      .removeEvent(id)
       .then(() => {
-        day.events = day.events.filter(e => e.$key && e.$key != key)
+        day.events = day.events.filter(e => e.id && e.id != id)
+        this.toggleEventInput(null)
       })
   }
 
   toggleEventInput(key: string) {
-    this.newEvent = { name: null, date: null }
+    this.newEvent = { name: null, date: null, id: null }
     const toggle = this.eventInputs[key] || false
     this.eventInputs = []
     if (key) this.eventInputs[key] = !toggle
@@ -90,16 +92,18 @@ export class CalendarComponent implements OnInit {
 
     const { name } = event
     const date = dayDate
+    const id = uuid()
 
     this.eventService
-      .addEvent({ name, date })
+      .addEvent({ name, date, id })
       .then(() => {
         const events = this.calendar.find(day => day.date === date).events
 
-        events.push({ name, date })
+        events.push({ name, date, id })
 
         delete this.newEvent.name
         delete this.newEvent.date
+        delete this.newEvent.id
       })
   }
 
