@@ -1,5 +1,7 @@
 # :calendar: cal
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ruanmartinelli/cal.svg)](https://greenkeeper.io/)
+
 Unpretentious calendar app
 
 <p align="center"><a href="https://ruanmartinelli.github.io/cal/">ruanmartinelli.github.io/cal</a></p>
